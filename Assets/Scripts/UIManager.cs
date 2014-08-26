@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TargetClicker.UI
 {
-    public class UIManager
+    public class UIManager : MonoBehaviour
     {
         #region Singleton
         private static UIManager _instance;
@@ -11,7 +11,7 @@ namespace TargetClicker.UI
         {
             get
             {
-                if( _instance == null ) _instance = new UIManager();
+                if( _instance == null ) _instance = FindObjectOfType<UIManager>();
                 return _instance;
             }
         }
@@ -23,12 +23,12 @@ namespace TargetClicker.UI
             GAME_HUD,
         }
 
-        private readonly Canvas _uiCanvas;
+        private Canvas _uiCanvas;
         private GameObject _currentLayout;
 
         private Dictionary<LAYOUT, GameObject> _layouts; 
 
-        private UIManager()
+        void Start()
         {
             _uiCanvas = GameObject.FindGameObjectWithTag("uiCanvas").GetComponent<Canvas>();
             _currentLayout = initializeLayouts();
